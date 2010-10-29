@@ -11,8 +11,10 @@ run_hook ()
         
         # get the truecrypt volume and slot
         if [ -n "${tcdevice}" ]; then
-            cryptdev="$(echo "${tcdevice}" | cut -d: -f1)"
-            cryptslot="$(echo "${tcdevice}" | cut -d: -f2)"
+	    # get total number of ':' in tcdevice (for devices in /dev/disk/by-id/
+	    count="$(echo "${tcdevice}" | grep -o ':' | wc -l )"
+            cryptdev="$(echo "${tcdevice}" | cut -d: -f1-$count)"
+            cryptslot="$(echo "${tcdevice}" | cut -d: -f$(( $count + 1 )) )"
             cryptname="truecrypt${cryptslot}"
         else
             err "No truecrypt device defined on the command line..."
