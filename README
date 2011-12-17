@@ -1,0 +1,8 @@
+To use this mkinicpio hook for truecrypt add
+truecrypt to the mkinitcpio hooks in /etc/mkinitcpio.conf then
+add tcdevice=<device>:<slotnum> to your kernel boot command line args
+if you use grub check /boot/grub/menu.lst of /boot/grub/grub.cfg
+The root device of a truecrypt encrypted device will be /dev/mapper/truecrypt<slotnum>
+where as you may have guessed <slotnum> is the number given in tcdevice=<device>:<slotnum>
+this works similar to how cryptluks works
+
